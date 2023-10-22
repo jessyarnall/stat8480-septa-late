@@ -1,0 +1,26 @@
+line,line_fix,routes_per_line,stops_on_route
+Airport-Inbound-Raw-10-20,airport,36,8
+Airport-Outbound-Raw-10-20,airport,38,10
+Chestnut Hill E Inbound,chestnut hill east,15,13
+Chestnut Hill E Outbound,chestnut hill east,17,10
+Chestnut Hill W Inbound,chestnut hill west,6,12
+Chestnut Hill W Outbound,chestnut hill west,31,14
+Cynwyd Outbound,cynwyd,12,5
+Doylestown In,doylestown,11,25
+Doylestown Out,doylestown,37,27
+Fox Chase In,fox chase,21,9
+Fox Chase Out,fox chase,18,9
+Manayunk In,manayunk,21,15
+Manayunk Out,manayunk,23,16
+Media In,media,21,18
+Media Out,media,31,20
+Newark In,newark,9,20
+Newark Out,newark,27,22
+Paoli In,paoili,14,24
+Paoli Out,paoli,47,26
+Trenton In,trenton,13,13
+Trenton Out,trent,35,15
+W Trenton In,west trenton,16,20
+W Trenton Out,west trenton,26,21
+War In,warminster,24,15
+War Out,warminster,33,17

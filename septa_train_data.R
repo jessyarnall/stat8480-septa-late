@@ -136,3 +136,5 @@ data <- data %>%
   filter((!`Train Number` %like% 'Created' )) %>%
   drop_na(`Train Number`)
 
+
+write_csv(data, 'septa_data.csv')
