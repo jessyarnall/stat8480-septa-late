@@ -134,7 +134,25 @@ data <- rbind(data1, data2, data3, data4, data5, data6, data7, data8, data9, dat
 
 data <- data %>% 
   filter((!`Train Number` %like% 'Created' )) %>%
-  drop_na(`Train Number`)
+  drop_na(`Train Number`) %>%
+  mutate(outbound_ind = case_when(line %like% 'Out' ~ 1,
+                                  TRUE ~ 0))
 
+#lines <- data %>% select(stop) %>% distinct() #%>% group_by(stop) %>% summarise(count = n())
 
-write_csv(data, 'septa_data.csv')
+#write_clip(lines)
+
+line_info <- read_csv("line-info.csv")
+amtrak_info <- read_csv("amtrak_stops.csv")
+
+data_update <- data %>% left_join(line_info, by= 'line') %>%
+  mutate(line = line_fix) %>%
+  select(-line_fix) %>%
+  left_join(amtrak_info, by = 'stop') %>%
+  mutate(late_ind = case_when(late_mins > .9 ~ 1,
+                              late_mins <= .9 ~ 0),
+         late_septa_ind = case_when(late_mins > 5 ~ 1,
+                                    late_mins <= 5 ~ 0)) %>%
+  mutate_at(vars(amtrak_ind), ~replace_na(., 0))
+
+write_csv(data_update, 'septa_data.csv')
