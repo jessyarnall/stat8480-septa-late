@@ -343,7 +343,10 @@ times26 <- read_excel("SEPTA_ScheduleData_10-23-23.xlsx", sheet = 26, col_types 
   mutate(line = sheet_names[[26]][1])
 
 
-times <- rbind(times1, times2, times3, times4, times5, times6, times7, times8, times9, times10, times11, times12, times13, times14, times15, times16, times17, times18, times19, times20, times21, times22, times23, times24, times25, times26)
+times <- rbind(times1, times2, times3, times4, times5, times6, times7, times8, times9, times10, times11, times12, times13, times14, times15, times16, times17, times18, times19, times20, times21, times22, times23, times24, times25, times26) %>%
+  group_by(line, train) %>%
+  mutate(stop_number = row_number() ) %>%
+  ungroup()
 
 
 # lines <- data_update_test %>% select(line) %>% distinct() #%>% group_by(stop) %>% summarise(count = n())
@@ -376,10 +379,12 @@ data_update_times <- data_update_times %>%
 # time between stops
 data_update_times <- data_update_times %>%
   group_by(`Train Number`, line) %>%
-  mutate(prior_stop_time = lag(time, order_by = c(time))) %>%
+  mutate(prior_stop_time = lag(time, order_by = c(stop_number))) %>%
   ungroup() %>%
-  mutate(time_between_stops = as_hms(difftime(as_hms(time), as_hms(prior_stop_time)))) ## some stops run over midnight. will need to either remove or adjust manually
-
+  mutate(time_between_stops = as_hms(difftime(as_hms(time), as_hms(prior_stop_time))),
+         time_between_stops = case_when(time_between_stops < 0 ~ as_hms(difftime(as_hms('24:00:00'), -time_between_stops)),
+                                        TRUE ~ time_between_stops)) # fix negative times
+  
 
 
 #---------------------
