@@ -373,6 +373,13 @@ data_update_times <- data_update_times %>%
                                as_hms(time) >= as_hms('15:00:00') & as_hms(time) <= as_hms('18:00:00') ~ 2,
                                TRUE ~ 0))
 
+# time between stops
+data_update_times <- data_update_times %>%
+  group_by(`Train Number`, line) %>%
+  mutate(prior_stop_time = lag(time, order_by = c(time))) %>%
+  ungroup() %>%
+  mutate(time_between_stops = as_hms(difftime(as_hms(time), as_hms(prior_stop_time)))) ## some stops run over midnight. will need to either remove or adjust manually
+
 
 
 #---------------------
