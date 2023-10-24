@@ -1,0 +1,27 @@
+line,line_fix,outbound_ind
+Airport Inbound,airport,0
+Airport Outbound,airport,1
+Chestnut Hill East Outbound,chestnut hill east,1
+Chestnut Hill East Inbound,chestnut hill east,0
+Chestnut Hill West Inbound,chestnut hill west,0
+Chestnut Hill West Outbound,chestnut hill west,1
+Cynwyd Inbound,cynwyd,0
+Cynwyd Outbound,cynwyd,1
+Fox Chase Outbound,fox chase,1
+Fox Chase Inbound,fox chase,0
+Landsdale Outbound,doylestown,1
+Landsdale Inbound,doylestown,0
+Media Inbound,media,0
+Media Outbound,media,1
+Manayunk Outbound,manayunk,1
+Manayunk Inbound,manayunk,0
+Paoli Inbound,paoili,0
+Paoli Outbound,paoili,1
+Trenton Inbound,trenton,0
+Trenton Outbound,trenton,1
+Warminster Outbound,warminster,1
+Warminster Inbound,warminster,0
+West Trenton Outbound,west trenton,1
+West Trenton Inbound,west trenton,0
+Wilmington Inbound,newark,0
+Wilmington Outbound,newark,1
