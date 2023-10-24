@@ -384,6 +384,10 @@ data_update_times <- data_update_times %>%
   mutate(time_between_stops = as_hms(difftime(as_hms(time), as_hms(prior_stop_time))),
          time_between_stops = case_when(time_between_stops < 0 ~ as_hms(difftime(as_hms('24:00:00'), -time_between_stops)),
                                         TRUE ~ time_between_stops)) # fix negative times
+
+# fix stops on route
+data_update_times <- data_update_times %>%
+  rename(stops_on_line = stops_on_route)
   
 
 
