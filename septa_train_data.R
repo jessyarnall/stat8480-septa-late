@@ -366,6 +366,13 @@ times_update <- times %>% left_join(times_lines, by= 'line') %>%
 
 data_update_times <- data_update %>% left_join(times_update, by = c('line', 'stop' = 'Stops', `Train Number` = 'train'))
 
+## add rush hour variable
+library(hms)
+data_update_times <- data_update_times %>% 
+  mutate(rush_hour = case_when(as_hms(time) >= as_hms('07:00:00') & as_hms(time) <= as_hms('09:00:00') ~ 1,
+                               as_hms(time) >= as_hms('15:00:00') & as_hms(time) <= as_hms('18:00:00') ~ 2,
+                               TRUE ~ 0))
+
 
 
 #---------------------
