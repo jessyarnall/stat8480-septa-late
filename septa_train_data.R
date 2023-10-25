@@ -388,6 +388,26 @@ data_update_times <- data_update_times %>%
 # fix stops on route
 data_update_times <- data_update_times %>%
   rename(stops_on_line = stops_on_route)
+
+#actual steps on route
+stops_on_route_number <- data_update_times %>% filter(!is.na(time)) %>% 
+  select(`Train Number`, line, stop, stops_on_line) %>% 
+    rename(train_number = `Train Number`) %>%
+  distinct() %>%
+  group_by(line, train_number) %>%
+  mutate(route_stop_number = row_number() ) %>%
+  ungroup()  
+
+stops_on_route <- stops_on_route_number %>%
+  group_by(line, train_number) %>%
+  summarise(stops_on_route = max(route_stop_number)) %>%
+  ungroup()
+
+#calculate express train
+stops_on_route <- stops_on_route_number %>% left_join(stops_on_route, by = c('line', 'train_number')) %>%
+  mutate(percent_line = stops_on_route/stops_on_line,
+           express_train_ind = case_when(percent_line < .85 ~ 1,
+                                         TRUE ~ 0))
   
 
 
