@@ -407,8 +407,11 @@ stops_on_route <- stops_on_route_number %>%
 stops_on_route <- stops_on_route_number %>% left_join(stops_on_route, by = c('line', 'train_number')) %>%
   mutate(percent_line = stops_on_route/stops_on_line,
            express_train_ind = case_when(percent_line < .85 ~ 1,
-                                         TRUE ~ 0))
+                                         TRUE ~ 0)) %>%
+  select(-stops_on_line)
   
+# add metrics to dataframe
+data_update_times <- data_update_times %>% left_join(stops_on_route, by = c(`Train Number` = 'train_number', 'line', 'stop'))
 
 
 #---------------------
