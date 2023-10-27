@@ -413,6 +413,14 @@ stops_on_route <- stops_on_route_number %>% left_join(stops_on_route, by = c('li
 # add metrics to dataframe
 data_update_times <- data_update_times %>% left_join(stops_on_route, by = c(`Train Number` = 'train_number', 'line', 'stop'))
 
+# join zone info
+zone_info <- read_csv("SEPTA_ZoneData_10-27-23.csv") 
+# 
+# stop <- data_update_times %>% select(stop) %>% distinct() #%>% group_by(stop) %>% summarise(count = n())
+# # 
+# write_clip(stop)
+
+data_update_times <- data_update_times %>% left_join(zone_info, by = c('stop' = 'stop'))
 
 #---------------------
 
